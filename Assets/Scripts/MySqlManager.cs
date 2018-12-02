@@ -16,7 +16,7 @@ public class MySqlManager : MonoBehaviour {
     string getMapData = "http://mordokay.com/LudumDare43/getMapData.php";
     string listMaps = "http://mordokay.com/LudumDare43/listMaps.php";
 
-    public void UploadMap()
+    public string GenerateMapData()
     {
         string data = "";
         int mapWidth = this.GetComponent<MapMaker>().mapWidth;
@@ -25,7 +25,7 @@ public class MySqlManager : MonoBehaviour {
         List<GameObject> garryPath = this.GetComponent<MapMaker>().garryPath;
 
         data = mapName.text + "***" + creatorName.text + "***" + password.text + "***" + mapWidth.ToString() + " " + mapHeight.ToString() + "***";
-        for(int i = 0; i < mapWidth; i++)
+        for (int i = 0; i < mapWidth; i++)
         {
             for (int j = 0; j < mapHeight; j++)
             {
@@ -59,6 +59,11 @@ public class MySqlManager : MonoBehaviour {
         }
         data = data.Substring(0, data.Length - 1);
 
+        return data;
+    }
+
+    public void UploadMap()
+    {
         //if there is no Garry and Pit of Hell
         if (!this.GetComponent<MapMaker>().GarryPlaced || !this.GetComponent<MapMaker>().pitOfHellPlaced)
         {
@@ -68,6 +73,7 @@ public class MySqlManager : MonoBehaviour {
         }
         else
         {
+            string data = GenerateMapData();
             StartCoroutine(AddMapEnumerator(mapName.text, data.Trim()));
         }
     }

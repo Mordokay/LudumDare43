@@ -43,32 +43,71 @@ public class MapMaker : MonoBehaviour
     public GameObject listDecorative;
     public GameObject scrollbarDecorative;
 
-    public GameObject GarryHolder;
     public bool GarryPlaced;
     public bool pitOfHellPlaced;
 
     public List<GameObject> garryPath;
     GameObject arrowsHolder;
-    bool gameStarted;
+    GameObject garryHolder;
+    public bool gameStarted;
+    public bool isInEditor;
 
     public GameObject mapMakerPanel;
     public GameObject saveMapPanel;
+    public GameObject mapMakerTestPanel;
 
     string getMapData = "http://mordokay.com/LudumDare43/getMapData.php";
+    string mapBackup;
+
+    public GameObject playButton;
+    public GameObject stopButton;
 
     private void Start()
     {
+        garryHolder = GameObject.FindGameObjectWithTag("GarryHolder");
+        mapBackup = " ";
+        arrowsHolder = GameObject.FindGameObjectWithTag("ArrowsHolder");
         if (PlayerPrefs.GetInt("StartGame") == 1)
         {
             LoadMap(PlayerPrefs.GetString("MapName"));
             mapMakerPanel.SetActive(false);
+            mapMakerTestPanel.SetActive(false);
+            gameStarted = true;
+            isInEditor = false;
         }
         else
         {
             RemoveEditing();
             editingTerrain = true;
-            arrowsHolder = GameObject.FindGameObjectWithTag("ArrowsHolder");
+            isInEditor = true;
+            gameStarted = false;
         }
+    }
+
+    public void TestMap()
+    {
+        if (GarryPlaced && pitOfHellPlaced)
+        {
+            saveMapPanel.SetActive(false);
+            mapMakerPanel.SetActive(false);
+            mapBackup = this.GetComponent<MySqlManager>().GenerateMapData();
+            gameStarted = true;
+            playButton.SetActive(false);
+            stopButton.SetActive(true);
+        }
+    }
+
+    public void StopMapTest()
+    {
+        gameStarted = false;
+        playButton.SetActive(true);
+        stopButton.SetActive(false);
+        mapMakerPanel.SetActive(true);
+        ResetMap();
+        CreateMapFromBackup();
+        playButton.SetActive(true);
+        playButton.GetComponent<Button>().interactable = true;
+        stopButton.SetActive(false);
     }
 
     public void BackToMenu()
@@ -76,12 +115,76 @@ public class MapMaker : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void CreateMapFromBackup()
+    {
+        string[] gameData = mapBackup.Split(new string[] { "***" }, StringSplitOptions.None);
+        string[] mapSize = gameData[3].Split(' ');
+        mapWidth = Int32.Parse(mapSize[0]);
+        mapHeight = Int32.Parse(mapSize[1]);
+        GenerateMap(mapWidth, mapHeight);
+
+        string[] terrainIDs = gameData[4].Split(' ');
+        string[] animalIDs = gameData[5].Split(' ');
+        string[] decorativeIDs = gameData[6].Split(' ');
+        string[] garyPathNodes = gameData[7].Split(',');
+
+        for (int i = 0; i < mapWidth; i++)
+        {
+            for (int j = 0; j < mapHeight; j++)
+            {
+
+                if (Int32.Parse(terrainIDs[i * mapWidth + j]) != -1)
+                {
+                    mapArray[i, j].GetComponent<TerrainTile>().ChangeTile(Int32.Parse(terrainIDs[i * mapWidth + j]));
+                }
+                if (Int32.Parse(animalIDs[i * mapWidth + j]) != -1)
+                {
+                    mapArray[i, j].GetComponent<TerrainTile>().ChangeAnimal(Int32.Parse(animalIDs[i * mapWidth + j]));
+                }
+                if (Int32.Parse(decorativeIDs[i * mapWidth + j]) != -1)
+                {
+                    mapArray[i, j].GetComponent<TerrainTile>().ChangeDecorative(Int32.Parse(decorativeIDs[i * mapWidth + j]));
+                }
+            }
+        }
+
+        garryPath.Clear();
+        garryPath = new List<GameObject>();
+        Vector3 lastPos = Vector3.zero;
+        for (int i = 0; i < garyPathNodes.Length; i++)
+        {
+            string[] node = garyPathNodes[i].Split(' ');
+            int realWidth = Int32.Parse(node[0]) + mapWidth / 2;
+            int realHeight = Int32.Parse(node[1]) + mapHeight / 2;
+            garryPath.Add(mapArray[realWidth, realHeight]);
+            if (i == 0)
+            {
+                mapArray[realWidth, realHeight].GetComponent<TerrainTile>().InsertGarry();
+                GarryPlaced = true;
+            }
+            else
+            {
+                mapArray[realWidth, realHeight].GetComponent<TerrainTile>().InsertPitOfHell(garryPath[i - 1].transform.position, true, false);
+
+                if (!pitOfHellPlaced)
+                {
+                    pitOfHellPlaced = true;
+                }
+                else
+                {
+                    garryPath[i - 1].GetComponent<TerrainTile>().hasPit = 0;
+                    Destroy(garryPath[i - 1].GetComponent<TerrainTile>().othersHolder.GetChild(0).gameObject);
+                }
+            }
+        }
+    }
+
     public IEnumerator RequestMapData(string name)
     {
         string post_url = getMapData + "?name=" + WWW.EscapeURL(name);
         WWW hs_post = new WWW(post_url);
         yield return hs_post;
-        Debug.Log(hs_post.text);
+        //Debug.Log(hs_post.text);
         string[] gameData = hs_post.text.Split(new string[] { "***" }, StringSplitOptions.None);
         string[] mapSize = gameData[3].Split(' ');
         mapWidth = Int32.Parse(mapSize[0]);
@@ -129,6 +232,7 @@ public class MapMaker : MonoBehaviour
             if (i == 0)
             {
                 mapArray[realWidth, realHeight].GetComponent<TerrainTile>().InsertGarry();
+                GarryPlaced = true;
             }
             else 
             {
@@ -145,7 +249,7 @@ public class MapMaker : MonoBehaviour
                 }
             }
         }
-        Debug.Log(hs_post.text);
+        //Debug.Log(hs_post.text);
     }
 
     public void LoadMap(string name)
@@ -237,6 +341,7 @@ public class MapMaker : MonoBehaviour
 
     public void selectTile(int tileID)
     {
+        ClearAllSelections();
         foreach (GameObject btn in TileButtons)
         {
             btn.GetComponent<Image>().color = Color.white;
@@ -248,6 +353,7 @@ public class MapMaker : MonoBehaviour
 
     public void selectAnimal(int animalID)
     {
+        ClearAllSelections();
         foreach (GameObject btn in AnimalButtons)
         {
             btn.GetComponent<Image>().color = Color.white;
@@ -259,6 +365,7 @@ public class MapMaker : MonoBehaviour
 
     public void selectDecorative(int decorativeID)
     {
+        ClearAllSelections();
         foreach (GameObject btn in DecorativeButtons)
         {
             btn.GetComponent<Image>().color = Color.white;
@@ -287,6 +394,11 @@ public class MapMaker : MonoBehaviour
         garryPath.Clear();
         GarryPlaced = false;
         pitOfHellPlaced = false;
+        //Destroys actual Garry
+        if (garryHolder.transform.childCount > 0)
+        {
+            Destroy(garryHolder.transform.GetChild(0).gameObject);
+        }
     }
 
     public void GenerateMap(int width, int height)
@@ -347,6 +459,14 @@ public class MapMaker : MonoBehaviour
     }
     private void Update()
     {
+        if (isInEditor && !gameStarted  && GarryPlaced && pitOfHellPlaced)
+        {
+            playButton.GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            playButton.GetComponent<Button>().interactable = false;
+        }
         //Only allow raycast if mouse is not over the UI
         if (!EventSystem.current.IsPointerOverGameObject())
         {

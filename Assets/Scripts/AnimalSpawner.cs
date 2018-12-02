@@ -6,7 +6,6 @@ public class AnimalSpawner : MonoBehaviour {
 
     public List<Transform> patrolPoints;
 
-    int animalCount;
     public int animalMaxCount;
     public Transform animalHolder;
     public float animalRespawnTime;
@@ -16,7 +15,6 @@ public class AnimalSpawner : MonoBehaviour {
 
     void Start () {
         animalPrefab = Resources.Load<GameObject>("AnimalObjects/" + animalName);
-        animalCount = 0;
         patrolPoints = new List<Transform>();
         animalHolder = this.transform.GetChild(1);
         foreach (Transform child in this.transform.GetChild(0))
@@ -28,11 +26,10 @@ public class AnimalSpawner : MonoBehaviour {
 	
 	void Update () {
         timeSinceLastRespawn += Time.deltaTime;
-        if(timeSinceLastRespawn > animalRespawnTime && animalCount < animalMaxCount)
+        if(timeSinceLastRespawn > animalRespawnTime && animalHolder.childCount < animalMaxCount)
         {
             //Instantiate bunny
             GameObject myAnimal = Instantiate(animalPrefab, animalHolder) as GameObject;
-            animalCount += 1;
             timeSinceLastRespawn = 0.0f;
         }
 	}

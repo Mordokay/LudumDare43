@@ -20,11 +20,16 @@ public class TerrainTile : MonoBehaviour {
     Transform decorativeHolder;
     public Transform othersHolder;
     Material initialMaterial;
+    public GameObject garryHolder;
+    public GameObject garryPrefab;
 
     void Start () {
+
         initialMaterial = this.GetComponent<Renderer>().material;
         gm = GameObject.FindGameObjectWithTag("GameManager");
         arrowsHolder = GameObject.FindGameObjectWithTag("ArrowsHolder");
+        garryHolder = GameObject.FindGameObjectWithTag("GarryHolder");
+        garryPrefab = Resources.Load("Garry", typeof(GameObject)) as GameObject;
         terrainType = -1;
         animalType = -1;
         decorativeType = -1;
@@ -118,8 +123,12 @@ public class TerrainTile : MonoBehaviour {
         //instantiate garry hut
         Instantiate(otherPrefabs[1], othersHolder);
         ChangeTile(0);
+
+        
         //instantiate garry object
-        //Instantiate(GarryPlayer);
+        GameObject myGarry = Instantiate(garryPrefab, garryHolder.transform);
+        myGarry.transform.position = this.transform.position + Vector3.up * 0.8f;
+
     }
 
     //Removing gary also removes the pit of hell and the entire path
@@ -148,6 +157,9 @@ public class TerrainTile : MonoBehaviour {
         {
             Destroy(arrowsHolder.transform.GetChild(i).gameObject);
         }
+
+        //Destroys actual Garry
+        Destroy(garryHolder.transform.GetChild(0).gameObject);
     }
 
     public void InsertPitOfHell(Vector3 lastPathPos, bool addArrow, bool fromRemove)
@@ -170,7 +182,7 @@ public class TerrainTile : MonoBehaviour {
         {
             myPit.transform.Rotate(Vector3.forward * 90.0f);
 
-            if (addArrow)
+            if (addArrow && gm.GetComponent<MapMaker>().isInEditor)
             {
                 GameObject myArrow = Instantiate(otherPrefabs[0], arrowsHolder.transform) as GameObject;
                 myArrow.transform.position = lastPathPos + Vector3.right * 0.9f + Vector3.up * 0.7f;
@@ -186,7 +198,7 @@ public class TerrainTile : MonoBehaviour {
         {
             myPit.transform.Rotate(Vector3.forward * -90.0f);
 
-            if (addArrow)
+            if (addArrow && gm.GetComponent<MapMaker>().isInEditor)
             {
                 GameObject myArrow = Instantiate(otherPrefabs[0], arrowsHolder.transform) as GameObject;
                 myArrow.transform.position = lastPathPos - Vector3.right * 0.9f + Vector3.up * 0.7f;
@@ -202,7 +214,7 @@ public class TerrainTile : MonoBehaviour {
         {
             myPit.transform.Rotate(Vector3.forward * 180.0f);
 
-            if (addArrow)
+            if (addArrow && gm.GetComponent<MapMaker>().isInEditor)
             {
                 GameObject myArrow = Instantiate(otherPrefabs[0], arrowsHolder.transform) as GameObject;
                 myArrow.transform.position = lastPathPos - Vector3.forward * 0.9f + Vector3.up * 0.7f;
@@ -216,7 +228,7 @@ public class TerrainTile : MonoBehaviour {
         //nova ta a frente
         else if (this.transform.position.z - lastPathPos.z > 0.0f && Mathf.Abs(this.transform.position.z - lastPathPos.z) > 0.01f)
         {
-            if (addArrow)
+            if (addArrow && gm.GetComponent<MapMaker>().isInEditor)
             {
                 GameObject myArrow = Instantiate(otherPrefabs[0], arrowsHolder.transform) as GameObject;
                 myArrow.transform.position = lastPathPos + Vector3.forward * 0.9f + Vector3.up * 0.7f;

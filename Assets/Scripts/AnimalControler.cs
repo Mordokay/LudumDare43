@@ -13,13 +13,13 @@ public class AnimalControler : MonoBehaviour {
 
     private void Awake()
     {
-        int currentPoint = Random.Range(0, patrolPoints.Count);
         patrolPoints = this.transform.parent.parent.gameObject.GetComponent<AnimalSpawner>().patrolPoints;
-
+        int currentPoint = Random.Range(0, patrolPoints.Count);
         this.transform.position = patrolPoints[currentPoint].position;
 
         isWaiting = true;
         timeSinceAnimalWaited = Time.timeSinceLevelLoad;
+        
     }
 
     void Update () {
@@ -31,6 +31,13 @@ public class AnimalControler : MonoBehaviour {
                 isWaiting = false;
                 timeSinceAnimalWaited = 0.0f;
                 currentPoint = Random.Range(0, patrolPoints.Count);
+                this.GetComponent<Animator>().SetBool("isWalking", true);
+                Vector3 dir = patrolPoints[currentPoint].position - this.transform.position;
+                this.transform.LookAt(patrolPoints[currentPoint].position);
+                this.transform.Rotate(new Vector3(0, 90, 0));
+                //this.transform.rotation =
+                  //          Quaternion.Euler(-90, 0, Vector2.SignedAngle(new Vector2(dir.x, dir.z), new Vector2(0.0f, -1.0f)));
+
             }
 
         }
@@ -38,6 +45,7 @@ public class AnimalControler : MonoBehaviour {
         {
             this.transform.position = patrolPoints[currentPoint].position;
             isWaiting = true;
+            this.GetComponent<Animator>().SetBool("isWalking", false);
         }
         else
         {
