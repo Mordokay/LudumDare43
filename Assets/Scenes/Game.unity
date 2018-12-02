@@ -4104,7 +4104,7 @@ RectTransform:
   m_GameObject: {fileID: 767901047}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 495067831}
   - {fileID: 2058673286}
@@ -4113,6 +4113,7 @@ RectTransform:
   - {fileID: 419091181}
   - {fileID: 713317374}
   - {fileID: 683936460}
+  - {fileID: 1901255158}
   m_Father: {fileID: 1425100465}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4912,7 +4913,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0}
+  m_AnchoredPosition: {x: -0.000091552734, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &885138276
@@ -6089,6 +6090,7 @@ MonoBehaviour:
   - {fileID: 2048436069}
   - {fileID: 1029382471}
   - {fileID: 1946389582}
+  - {fileID: 1056846476}
   editGarryButton: {fileID: 505575605}
   titleTabButton: {fileID: 836558570}
   animalTabButton: {fileID: 230481963}
@@ -6108,7 +6110,8 @@ MonoBehaviour:
   GarryPlaced: 0
   pitOfHellPlaced: 0
   garryPath: []
-  SaveMapPanel: {fileID: 767901047}
+  mapMakerPanel: {fileID: 1614502131}
+  saveMapPanel: {fileID: 767901047}
 --- !u!4 &1235269132
 Transform:
   m_ObjectHideFlags: 0
@@ -6137,6 +6140,7 @@ MonoBehaviour:
   mapName: {fileID: 2058673287}
   creatorName: {fileID: 288671151}
   password: {fileID: 713317375}
+  warningMySql: {fileID: 1901255157}
 --- !u!1 &1239967191
 GameObject:
   m_ObjectHideFlags: 0
@@ -7799,7 +7803,7 @@ GameObject:
   - component: {fileID: 1614502134}
   - component: {fileID: 1614502133}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: MapMakerPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9538,6 +9542,81 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1888467428}
+  m_CullTransparentMesh: 0
+--- !u!1 &1901255157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1901255158}
+  - component: {fileID: 1901255160}
+  - component: {fileID: 1901255159}
+  m_Layer: 5
+  m_Name: WarningMySql
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1901255158
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1901255157}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 767901048}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 25, y: 25}
+  m_SizeDelta: {x: 500, y: 58.3}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1901255159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1901255157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 84cceeae55f577241a7f4b1ab2c4a3b0, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: That Map Already Exists!
+--- !u!222 &1901255160
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1901255157}
   m_CullTransparentMesh: 0
 --- !u!1 &1913175207
 GameObject:

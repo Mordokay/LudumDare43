@@ -48,15 +48,27 @@ public class MapMaker : MonoBehaviour
 
     public List<GameObject> garryPath;
     GameObject arrowsHolder;
-    bool gameRunning;
+    bool gameStarted;
 
-    public GameObject SaveMapPanel;
+    public GameObject mapMakerPanel;
+    public GameObject saveMapPanel;
 
     private void Start()
     {
+        if(PlayerPrefs.GetInt("StartGame") == 1)
+        {
+            LoadMap(PlayerPrefs.GetString("MapName"));
+            mapMakerPanel.SetActive(false);
+        }
+        
         RemoveEditing();
         editingTerrain = true;
         arrowsHolder = GameObject.FindGameObjectWithTag("ArrowsHolder");
+    }
+
+    public void LoadMap(string name)
+    {
+
     }
 
     public void RemoveEditing()
@@ -221,18 +233,17 @@ public class MapMaker : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void SaveMap()
     {
-        if (SaveMapPanel.activeSelf)
+        if (saveMapPanel.activeSelf)
         {
-            SaveMapPanel.SetActive(false);
+            saveMapPanel.SetActive(false);
         }
         else
         {
-            SaveMapPanel.SetActive(true);
+            saveMapPanel.SetActive(true);
         }
     }
     private void Update()

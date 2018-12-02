@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,9 +10,11 @@ public class MySqlManager : MonoBehaviour {
     public InputField mapName;
     public InputField creatorName;
     public InputField password;
+    public GameObject warningMySql;
 
     string addMap = "http://mordokay.com/LudumDare43/addMap.php";
-    string getMaps = "http://mordokay.com/LudumDare43/getMaps.php";
+    string getMapData = "http://mordokay.com/LudumDare43/getMapData.php";
+    string listMaps = "http://mordokay.com/LudumDare43/listMaps.php";
 
     public void UploadMap()
     {
@@ -21,18 +24,84 @@ public class MySqlManager : MonoBehaviour {
         GameObject[,] mapArray = this.GetComponent<MapMaker>().mapArray;
         List<GameObject> garryPath = this.GetComponent<MapMaker>().garryPath;
 
-        data = mapName.text + "&&" + creatorName.text + "&&" + password.text + "&&" + mapWidth.ToString() + " " + mapHeight.ToString() + "&&";
+        data = mapName.text + "***" + creatorName.text + "***" + password.text + "***" + mapWidth.ToString() + " " + mapHeight.ToString() + "***";
+        for(int i = 0; i < mapWidth; i++)
+        {
+            for (int j = 0; j < mapHeight; j++)
+            {
+                data += mapArray[i, j].GetComponent<TerrainTile>().terrainType + " ";
+            }
+        }
+        data = data.Substring(0, data.Length - 1);
+        data += "***";
+        for (int i = 0; i < mapWidth; i++)
+        {
+            for (int j = 0; j < mapHeight; j++)
+            {
+                data += mapArray[i, j].GetComponent<TerrainTile>().animalType + " ";
+            }
+        }
+        data = data.Substring(0, data.Length - 1);
+        data += "***";
+        for (int i = 0; i < mapWidth; i++)
+        {
+            for (int j = 0; j < mapHeight; j++)
+            {
+                data += mapArray[i, j].GetComponent<TerrainTile>().decorativeType + " ";
+            }
+        }
+        data = data.Substring(0, data.Length - 1);
+        data += "***";
+        foreach (GameObject pathNode in garryPath)
+        {
+            data += Mathf.RoundToInt(pathNode.GetComponent<TerrainTile>().transform.position.x) + " " +
+                        Mathf.RoundToInt(pathNode.GetComponent<TerrainTile>().transform.position.z) + ",";
+        }
+        data = data.Substring(0, data.Length - 1);
 
-        StartCoroutine(AddMapEnumerator(data.Trim()));
+        //if there is no Garry and Pit of Hell
+        if (!this.GetComponent<MapMaker>().GarryPlaced || !this.GetComponent<MapMaker>().pitOfHellPlaced)
+        {
+            warningMySql.SetActive(true);
+            warningMySql.GetComponent<Text>().text = "You didn't create Garry or the Pit of Hell!";
+            return;
+        }
+        else
+        {
+            StartCoroutine(AddMapEnumerator(mapName.text, data.Trim()));
+        }
     }
 
-    public IEnumerator AddMapEnumerator(string data)
-    {
-        string post_url = addMap + "?data=" + WWW.EscapeURL(data);
+    public IEnumerator AddMapEnumerator(string name, string data)
+    {     
+        string post_url = addMap + "?name=" + WWW.EscapeURL(name) + "&data=" + WWW.EscapeURL(data);
         WWW hs_post = new WWW(post_url);
         yield return hs_post;
 
-        Debug.Log(hs_post.text);
+        //if there is no Garry and Pit of Hell
+        if(!this.GetComponent<MapMaker>().GarryPlaced || !this.GetComponent<MapMaker>().pitOfHellPlaced)
+        {
+            warningMySql.SetActive(true);
+            warningMySql.GetComponent<Text>().text = "That Map Already Exists!";
+        }
+        //Map already exists
+        if(hs_post.text == "44")
+        {
+            warningMySql.SetActive(true);
+            warningMySql.GetComponent<Text>().text = "That Map Already Exists!";
+        }
+        //Success
+        else if(hs_post.text == "1")
+        {
+            this.GetComponent<MapMaker>().saveMapPanel.SetActive(false);
+            warningMySql.SetActive(false);
+        }
+        //Other possible Errors
+        else
+        {
+            warningMySql.SetActive(true);
+            warningMySql.GetComponent<Text>().text = hs_post.text;
+        }
     }
 
     void Update () {
