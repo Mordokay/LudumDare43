@@ -17,7 +17,7 @@ public class MapListingData : MonoBehaviour {
 
     public void PlayMap()
     {
-
+        gm.GetComponent<MenuManager>().LoadGame(mapName);
     }
     public void DeleteMap()
     {

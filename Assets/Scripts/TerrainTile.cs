@@ -38,6 +38,11 @@ public class TerrainTile : MonoBehaviour {
         othersHolder = this.transform.GetChild(2);
     }
 
+    public void InitializeVariables()
+    {
+        Start();
+    }
+
     public void ChangeTile(int tileID)
     {
         this.GetComponent<Renderer>().material = (Material)materialTiles[tileID];

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapMaker : MonoBehaviour
@@ -53,22 +54,103 @@ public class MapMaker : MonoBehaviour
     public GameObject mapMakerPanel;
     public GameObject saveMapPanel;
 
+    string getMapData = "http://mordokay.com/LudumDare43/getMapData.php";
+
     private void Start()
     {
-        if(PlayerPrefs.GetInt("StartGame") == 1)
+        if (PlayerPrefs.GetInt("StartGame") == 1)
         {
             LoadMap(PlayerPrefs.GetString("MapName"));
             mapMakerPanel.SetActive(false);
         }
-        
-        RemoveEditing();
-        editingTerrain = true;
-        arrowsHolder = GameObject.FindGameObjectWithTag("ArrowsHolder");
+        else
+        {
+            RemoveEditing();
+            editingTerrain = true;
+            arrowsHolder = GameObject.FindGameObjectWithTag("ArrowsHolder");
+        }
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public IEnumerator RequestMapData(string name)
+    {
+        string post_url = getMapData + "?name=" + WWW.EscapeURL(name);
+        WWW hs_post = new WWW(post_url);
+        yield return hs_post;
+        Debug.Log(hs_post.text);
+        string[] gameData = hs_post.text.Split(new string[] { "***" }, StringSplitOptions.None);
+        string[] mapSize = gameData[3].Split(' ');
+        mapWidth = Int32.Parse(mapSize[0]);
+        mapHeight = Int32.Parse(mapSize[1]);
+        GenerateMap(mapWidth, mapHeight);
+
+        string[] terrainIDs = gameData[4].Split(' ');
+        string[] animalIDs = gameData[5].Split(' ');
+        string[] decorativeIDs = gameData[6].Split(' ');
+        string[] garyPathNodes = gameData[7].Split(',');
+
+        for (int i = 0; i < mapWidth; i++)
+        {
+            for (int j = 0; j < mapHeight; j++)
+            {
+                
+                if (Int32.Parse(terrainIDs[i * mapWidth + j]) != -1)
+                {
+                    yield return new WaitForSeconds(0.05f);
+                    mapArray[i, j].GetComponent<TerrainTile>().ChangeTile(Int32.Parse(terrainIDs[i * mapWidth + j]));
+                }
+                if (Int32.Parse(animalIDs[i * mapWidth + j]) != -1)
+                {
+                    yield return new WaitForSeconds(0.05f);
+                    mapArray[i, j].GetComponent<TerrainTile>().ChangeAnimal(Int32.Parse(animalIDs[i * mapWidth + j]));
+                }
+                if (Int32.Parse(decorativeIDs[i * mapWidth + j]) != -1)
+                {
+                    yield return new WaitForSeconds(0.05f);
+                    mapArray[i, j].GetComponent<TerrainTile>().ChangeDecorative(Int32.Parse(decorativeIDs[i * mapWidth + j]));
+                }
+            }
+        }
+
+        garryPath.Clear();
+        garryPath = new List<GameObject>();
+        Vector3 lastPos = Vector3.zero;
+        for (int i = 0; i < garyPathNodes.Length; i++)
+        {
+            yield return new WaitForSeconds(0.05f);
+            string[] node = garyPathNodes[i].Split(' ');
+            int realWidth = Int32.Parse(node[0]) + mapWidth / 2;
+            int realHeight = Int32.Parse(node[1]) + mapHeight / 2;
+            garryPath.Add(mapArray[realWidth, realHeight]);
+            if (i == 0)
+            {
+                mapArray[realWidth, realHeight].GetComponent<TerrainTile>().InsertGarry();
+            }
+            else 
+            {
+                mapArray[realWidth, realHeight].GetComponent<TerrainTile>().InsertPitOfHell(garryPath[i - 1].transform.position, true, false);
+
+                if (!pitOfHellPlaced)
+                {
+                    pitOfHellPlaced = true;
+                }
+                else
+                {
+                    garryPath[i - 1].GetComponent<TerrainTile>().hasPit = 0;
+                    Destroy(garryPath[i - 1].GetComponent<TerrainTile>().othersHolder.GetChild(0).gameObject);
+                }
+            }
+        }
+        Debug.Log(hs_post.text);
     }
 
     public void LoadMap(string name)
     {
-
+        StartCoroutine(RequestMapData(name));
     }
 
     public void RemoveEditing()
@@ -205,6 +287,23 @@ public class MapMaker : MonoBehaviour
         garryPath.Clear();
         GarryPlaced = false;
         pitOfHellPlaced = false;
+    }
+
+    public void GenerateMap(int width, int height)
+    {
+        mapArray = new GameObject[width, height];
+
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                mapArray[i, j] = Instantiate(tilePrefab) as GameObject;
+                mapArray[i, j].transform.position = new Vector3(i - width / 2, 0, j - height / 2);
+                mapArray[i, j].transform.parent = mapHolder;
+                mapArray[i, j].name = "(" + i + "," + j + ")";
+                mapArray[i, j].GetComponent<TerrainTile>().InitializeVariables();
+            }
+        }
     }
 
     public void GenerateMap()

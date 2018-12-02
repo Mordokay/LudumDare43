@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour {
 
-    string getMapData = "http://mordokay.com/LudumDare43/getMapData.php";
     string listMaps = "http://mordokay.com/LudumDare43/listMaps.php";
     string deleteMap = "http://mordokay.com/LudumDare43/deleteMap.php";
 
@@ -22,15 +22,6 @@ public class MenuManager : MonoBehaviour {
     private void Start()
     {
         mapForDelete = "";
-    }
-
-    public IEnumerator RequestMapData(string name)
-    {
-        string post_url = getMapData + "?name=" + WWW.EscapeURL(name);
-        WWW hs_post = new WWW(post_url);
-        yield return hs_post;
-
-        Debug.Log(hs_post.text);
     }
 
     public IEnumerator ListMaps()
@@ -60,6 +51,23 @@ public class MenuManager : MonoBehaviour {
         //Debug.Log(hs_post.text);
     }
 
+    public void LoadMapCreator()
+    {
+        PlayerPrefs.SetInt("StartGame", 0);
+        SceneManager.LoadScene(1);
+    }
+
+    public void LoadGame(string name)
+    {
+        PlayerPrefs.SetInt("StartGame", 1);
+        PlayerPrefs.SetString("MapName", name);
+        SceneManager.LoadScene(1);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
     public IEnumerator DeleteMap(string name)
     {
         string post_url = deleteMap + "?name=" + WWW.EscapeURL(name) + "&password=" + WWW.EscapeURL(mapPassword.text);
@@ -104,11 +112,6 @@ public class MenuManager : MonoBehaviour {
     }
 
     void Update () {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            StartCoroutine(RequestMapData("default"));
-        }
-
         if (Input.GetKeyDown(KeyCode.L))
         {
             StartCoroutine(ListMaps());
