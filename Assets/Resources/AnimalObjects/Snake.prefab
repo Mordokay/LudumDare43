@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4450609065765832}
   - component: {fileID: 114102667140732138}
   - component: {fileID: 95954980919995246}
-  m_Layer: 0
+  - component: {fileID: 135894658894989206}
+  m_Layer: 11
   m_Name: Snake
-  m_TagString: Untagged
+  m_TagString: Snake
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1820802961495270}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.00592, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.01}
   m_Children:
   - {fileID: 4636699626893330}
@@ -146,3 +147,15 @@ MonoBehaviour:
   patrolPoints: []
   animalWaitTime: 2
   animalSpeed: 0.5
+--- !u!135 &135894658894989206
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1820802961495270}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: -0.03, y: 0, z: 0.09}

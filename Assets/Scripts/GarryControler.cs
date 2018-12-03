@@ -21,6 +21,7 @@ public class GarryControler : MonoBehaviour {
 
     private void Start()
     {
+        goalPos = Vector3.zero;
         mapMaker = GameObject.FindGameObjectWithTag("GameManager").GetComponent<MapMaker>();
         currentPathPoint = 0;
         strength = 1;

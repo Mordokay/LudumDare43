@@ -215,11 +215,12 @@ MonoBehaviour:
   animalPrefabs: []
   decorativePrefabs: []
   otherPrefabs: []
-  terrainType: 0
-  animalType: 0
-  decorativeType: 0
+  terrainType: -1
+  animalType: -1
+  decorativeType: -1
   hasGarry: 0
   hasPit: 0
   othersHolder: {fileID: 0}
   garryHolder: {fileID: 0}
   garryPrefab: {fileID: 0}
+  hasConstruct: 0

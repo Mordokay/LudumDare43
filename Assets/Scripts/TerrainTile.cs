@@ -23,16 +23,18 @@ public class TerrainTile : MonoBehaviour {
     public GameObject garryHolder;
     public GameObject garryPrefab;
 
-    void Start () {
+    public bool hasConstruct;
 
+    void Start () {
+        hasConstruct = false;
         initialMaterial = this.GetComponent<Renderer>().material;
         gm = GameObject.FindGameObjectWithTag("GameManager");
         arrowsHolder = GameObject.FindGameObjectWithTag("ArrowsHolder");
         garryHolder = GameObject.FindGameObjectWithTag("GarryHolder");
         garryPrefab = Resources.Load("Garry", typeof(GameObject)) as GameObject;
-        terrainType = -1;
-        animalType = -1;
-        decorativeType = -1;
+        //terrainType = -1;
+        //animalType = -1;
+        //decorativeType = -1;
         hasGarry = 0;
         materialTiles = Resources.LoadAll("Terrain", typeof(Material));
         animalPrefabs = Resources.LoadAll("Animal", typeof(GameObject));
@@ -50,8 +52,12 @@ public class TerrainTile : MonoBehaviour {
 
     public void ChangeTile(int tileID)
     {
-        this.GetComponent<Renderer>().material = (Material)materialTiles[tileID];
-        terrainType = tileID;
+        //Cant draw on Garry's path
+        if (terrainType != 0)
+        {
+            this.GetComponent<Renderer>().material = (Material)materialTiles[tileID];
+            terrainType = tileID;
+        }
     }
     public void RemoveTile()
     {

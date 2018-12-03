@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4480736133816942}
   - component: {fileID: 95590041307305450}
   - component: {fileID: 114686501830873022}
-  m_Layer: 0
+  - component: {fileID: 135422475741090618}
+  m_Layer: 11
   m_Name: Bunny
-  m_TagString: Untagged
+  m_TagString: Bunny
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1220268421089648}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00026}
+  m_LocalPosition: {x: 0.00306, y: 0.0058, z: 0.00026}
   m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.010000002}
   m_Children:
   - {fileID: 4311894175286158}
@@ -146,3 +147,15 @@ MonoBehaviour:
   patrolPoints: []
   animalWaitTime: 2
   animalSpeed: 0.5
+--- !u!135 &135422475741090618
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1220268421089648}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.11
+  m_Center: {x: 0, y: 0, z: 0}

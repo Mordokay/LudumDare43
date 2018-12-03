@@ -55,9 +55,10 @@ public class MapMaker : MonoBehaviour
     public GameObject mapMakerPanel;
     public GameObject saveMapPanel;
     public GameObject mapMakerTestPanel;
+    public GameObject gamePanel;
 
     string getMapData = "http://mordokay.com/LudumDare43/getMapData.php";
-    string mapBackup;
+    public string mapBackup;
 
     public GameObject playButton;
     public GameObject stopButton;
@@ -65,13 +66,14 @@ public class MapMaker : MonoBehaviour
     private void Start()
     {
         garryHolder = GameObject.FindGameObjectWithTag("GarryHolder");
-        mapBackup = " ";
+        mapBackup = "";
         arrowsHolder = GameObject.FindGameObjectWithTag("ArrowsHolder");
         if (PlayerPrefs.GetInt("StartGame") == 1)
         {
             LoadMap(PlayerPrefs.GetString("MapName"));
             mapMakerPanel.SetActive(false);
             mapMakerTestPanel.SetActive(false);
+            gamePanel.SetActive(true);
             gameStarted = true;
             isInEditor = false;
         }
@@ -88,12 +90,16 @@ public class MapMaker : MonoBehaviour
     {
         if (GarryPlaced && pitOfHellPlaced)
         {
+            ClearAllSelections();
+            RemoveEditing();
             saveMapPanel.SetActive(false);
             mapMakerPanel.SetActive(false);
             mapBackup = this.GetComponent<MySqlManager>().GenerateMapData();
+            //Debug.Log(mapBackup);
             gameStarted = true;
             playButton.SetActive(false);
             stopButton.SetActive(true);
+            gamePanel.SetActive(true);
         }
     }
 
@@ -104,10 +110,12 @@ public class MapMaker : MonoBehaviour
         stopButton.SetActive(false);
         mapMakerPanel.SetActive(true);
         ResetMap();
-        CreateMapFromBackup();
         playButton.SetActive(true);
         playButton.GetComponent<Button>().interactable = true;
         stopButton.SetActive(false);
+        gamePanel.SetActive(false);
+        this.GetComponent<PlayerData>().ResetPlayerData();
+        CreateMapFromBackup();
     }
 
     public void BackToMenu()
@@ -318,6 +326,7 @@ public class MapMaker : MonoBehaviour
 
     public void ClearAllSelections()
     {
+        this.GetComponent<PlayerData>().ResetPlayerData();
         foreach (GameObject btn in TileButtons)
         {
             btn.GetComponent<Image>().color = Color.white;
@@ -399,6 +408,10 @@ public class MapMaker : MonoBehaviour
         {
             Destroy(garryHolder.transform.GetChild(0).gameObject);
         }
+        for (int i = arrowsHolder.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(arrowsHolder.transform.GetChild(i).gameObject);
+        }
     }
 
     public void GenerateMap(int width, int height)
@@ -423,13 +436,17 @@ public class MapMaker : MonoBehaviour
         if (mapWidthText.text != "" && mapHeightText.text != "")
         {
             ResetMap();
-            for (int i = arrowsHolder.transform.childCount - 1; i >= 0; i--)
-            {
-                Destroy(arrowsHolder.transform.GetChild(i).gameObject);
-            }
 
             mapWidth = Int32.Parse(mapWidthText.text);
             mapHeight = Int32.Parse(mapHeightText.text);
+
+            if(mapWidth > 15){
+                mapWidth = 15;
+            }
+            if (mapHeight > 15)
+            {
+                mapHeight = 15;
+            }
 
             mapArray = new GameObject[mapWidth, mapHeight];
 

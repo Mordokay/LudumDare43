@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4060800610154462}
   - component: {fileID: 114384397097632162}
   - component: {fileID: 95937858461683658}
-  m_Layer: 0
+  - component: {fileID: 136172747992847786}
+  m_Layer: 11
   m_Name: Penguin
-  m_TagString: Untagged
+  m_TagString: Penguin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,3 +147,16 @@ MonoBehaviour:
   patrolPoints: []
   animalWaitTime: 2
   animalSpeed: 0.5
+--- !u!136 &136172747992847786
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1425013974716438}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.11
+  m_Height: 0.55
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.15, z: 0}

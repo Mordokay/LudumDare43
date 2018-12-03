@@ -11,6 +11,12 @@ TagManager:
   - ArrowsHolder
   - Garry
   - GarryHolder
+  - Snake
+  - Bunny
+  - Turtle
+  - Penguin
+  - MeatBolder
+  - PlateOfMeat
   layers:
   - Default
   - TransparentFX
@@ -23,8 +29,8 @@ TagManager:
   - PostProcessing
   - Terrain
   - Garry
-  - 
-  - 
+  - Animal
+  - Obstacle
   - 
   - 
   - 
