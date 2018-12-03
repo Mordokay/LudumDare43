@@ -17,6 +17,12 @@ TagManager:
   - Penguin
   - MeatBolder
   - PlateOfMeat
+  - BoneCatapult
+  - BoneRemover
+  - BasebalBat
+  - BarbecueGril
+  - Collector
+  - Loot
   layers:
   - Default
   - TransparentFX
@@ -31,11 +37,11 @@ TagManager:
   - Garry
   - Animal
   - Obstacle
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Construct
+  - Collection
+  - Loot
+  - Collector
+  - MoveLayer
   - 
   - 
   - 

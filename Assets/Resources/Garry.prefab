@@ -2418,4 +2418,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPathPoint: 0
-  garrySpeed: 0.1
+  garrySpeed: 0.05

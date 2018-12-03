@@ -25,12 +25,14 @@ public class AnimalSpawner : MonoBehaviour {
 	}
 	
 	void Update () {
-        timeSinceLastRespawn += Time.deltaTime;
-        if(timeSinceLastRespawn > animalRespawnTime && animalHolder.childCount < animalMaxCount)
-        {
-            //Instantiate bunny
-            GameObject myAnimal = Instantiate(animalPrefab, animalHolder) as GameObject;
-            timeSinceLastRespawn = 0.0f;
+        if (animalHolder.childCount < animalMaxCount) {
+            timeSinceLastRespawn += Time.deltaTime;
+            if (timeSinceLastRespawn > animalRespawnTime)
+            {
+                //Instantiate bunny
+                GameObject myAnimal = Instantiate(animalPrefab, animalHolder) as GameObject;
+                timeSinceLastRespawn = 0.0f;
+            }
         }
 	}
 }

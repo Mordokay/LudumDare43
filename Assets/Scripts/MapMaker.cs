@@ -296,7 +296,6 @@ public class MapMaker : MonoBehaviour
         RemoveEditing();
         RemoveLists();
         ClearAllSelections();
-        editingTerrain = true;
         listTerrain.SetActive(true);
         scrollbarTerrain.SetActive(true);
         titleTabButton.GetComponent<Image>().color = selectedColor;
@@ -307,7 +306,6 @@ public class MapMaker : MonoBehaviour
         RemoveEditing();
         RemoveLists();
         ClearAllSelections();
-        editingAnimals = true;
         listAnimal.SetActive(true);
         scrollbarAnimal.SetActive(true);
         animalTabButton.GetComponent<Image>().color = selectedColor;
@@ -318,7 +316,6 @@ public class MapMaker : MonoBehaviour
         RemoveEditing();
         RemoveLists();
         ClearAllSelections();
-        editingDecorative = true;
         listDecorative.SetActive(true);
         scrollbarDecorative.SetActive(true);
         decorativeTabButton.GetComponent<Image>().color = selectedColor;
@@ -358,6 +355,7 @@ public class MapMaker : MonoBehaviour
 
         selectedTile = tileID;
         TileButtons[tileID].GetComponent<Image>().color = selectedColor;
+        editingTerrain = true;
     }
 
     public void selectAnimal(int animalID)
@@ -370,6 +368,7 @@ public class MapMaker : MonoBehaviour
 
         selectedAnimal = animalID;
         AnimalButtons[animalID].GetComponent<Image>().color = selectedColor;
+        editingAnimals = true;
     }
 
     public void selectDecorative(int decorativeID)
@@ -382,6 +381,7 @@ public class MapMaker : MonoBehaviour
 
         selectedDecorative = decorativeID;
         DecorativeButtons[decorativeID].GetComponent<Image>().color = selectedColor;
+        editingDecorative = true;
     }
     public void ClearMap()
     {
