@@ -9680,7 +9680,7 @@ MonoBehaviour:
   selectedColor: {r: 0.9254902, g: 0.8901961, b: 0.15294118, a: 1}
   bolderPrefab: {fileID: 1572526986377852, guid: 7105df01f6b05f247818584d97c599c7,
     type: 2}
-  platePrefab: {fileID: 1644637805937766, guid: 26c68f8f7a6330249991d521ef8710c4,
+  platePrefab: {fileID: 1663067441927472, guid: 26c68f8f7a6330249991d521ef8710c4,
     type: 2}
   catapultPrefab: {fileID: 1829889485022270, guid: 9b4d7d7da41be0c4381a59bd65cee1e4,
     type: 2}
