@@ -69,6 +69,11 @@ public class MenuManager : MonoBehaviour {
         //Debug.Log(hs_post.text);
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     public void LoadMapCreator()
     {
         PlayerPrefs.SetInt("StartGame", 0);
@@ -82,17 +87,14 @@ public class MenuManager : MonoBehaviour {
         SceneManager.LoadScene(1);
     }
 
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
     public IEnumerator DeleteMap(string name)
     {
         string post_url = deleteMap + "?name=" + WWW.EscapeURL(name) + "&password=" + WWW.EscapeURL(mapPassword.text);
         WWW hs_post = new WWW(post_url);
         yield return hs_post;
 
-        if (passwordSubmitFeedback.text == "1")
+
+        if (hs_post.text == "1")
         {
             ShowMapListPanel();
         }

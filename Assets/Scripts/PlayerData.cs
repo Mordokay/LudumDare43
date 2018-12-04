@@ -356,7 +356,7 @@ public class PlayerData : MonoBehaviour {
                                 {
                                     objectHit.gameObject.GetComponent<TerrainTile>().hasConstruct = true;
                                     Instantiate(BoneRemoverPrefab, hit.transform);
-                                    DecrementInventory(8, 0, 2, 0);
+                                    DecrementInventory(8, 0, 0, 2);
                                 }
                             }
                             else if (baseballBatSelected)
