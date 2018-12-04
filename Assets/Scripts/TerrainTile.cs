@@ -116,6 +116,12 @@ public class TerrainTile : MonoBehaviour {
 
     public void InsertGarry()
     {
+        //Destroys actual Garry
+        if (garryHolder.transform.childCount > 0)
+        {
+            Destroy(garryHolder.transform.GetChild(0).gameObject);
+        }
+
         if (animalHolder.childCount > 0)
         {
             RemoveAnimal();
