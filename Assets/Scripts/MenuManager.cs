@@ -18,10 +18,28 @@ public class MenuManager : MonoBehaviour {
     string mapForDelete;
     public GameObject passwordSubmitButton;
     public Text passwordSubmitFeedback;
+    public bool toggleSound;
+    public Text muteButtonText;
 
     private void Start()
     {
         mapForDelete = "";
+        toggleSound = true;
+    }
+
+    public void ToggleSound()
+    {
+        toggleSound = !toggleSound;
+        if (toggleSound)
+        {
+            AudioListener.volume = 1f;
+            muteButtonText.text = "Sound: On";
+        }
+        else
+        {
+            AudioListener.volume = 0f;
+            muteButtonText.text = "Sound: Off";
+        }
     }
 
     public IEnumerator ListMaps()

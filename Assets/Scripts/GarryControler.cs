@@ -58,7 +58,7 @@ public class GarryControler : MonoBehaviour {
 
     public void GainPositivity(float positivityValue)
     {
-        //positivity += positivityValue;
+        positivity += positivityValue;
         positivity += 30;
         UpdateUI();
         if(positivity >= 100)
