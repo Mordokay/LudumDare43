@@ -13,23 +13,19 @@ public class ProjectileControler : MonoBehaviour {
         garry = GameObject.FindGameObjectWithTag("Garry");
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag.Equals("Garry"))
+    void Update () {
+        this.transform.position = Vector3.MoveTowards(this.transform.position, garry.transform.position, speed * Time.timeScale);
+        if (Vector3.Distance(this.transform.position, garry.transform.position) < 0.1f)
         {
             if (isOrb)
             {
-                other.gameObject.GetComponent<GarryControler>().GainPositivity(1.0f);
+                garry.GetComponent<GarryControler>().GainPositivity(1.0f);
             }
             else
             {
-                other.gameObject.GetComponent<GarryControler>().TakeDamage(10.0f);
+                garry.GetComponent<GarryControler>().TakeDamage(10.0f);
             }
             Destroy(this.gameObject);
         }
-    }
-
-    void Update () {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, garry.transform.position, speed * Time.timeScale);
 	}
 }

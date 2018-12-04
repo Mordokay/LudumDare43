@@ -34,7 +34,7 @@ public class ConstructControler : MonoBehaviour {
         pd = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerData>();
     }
 
-    public void AnimalEntry()
+    public void AnimalEntry(GameObject animal)
     {
         if (!isWorking)
         {
@@ -45,12 +45,16 @@ public class ConstructControler : MonoBehaviour {
             {
                 this.GetComponent<Animator>().SetBool("isWorking", true);
             }
+
+            pd.animalBeingGrabbed = null;
+            pd.grabbingAnimal = false;
+            Destroy(animal);
         }
     }
 
     public void Interact()
     {
-        if(!isWorking && canCollectPile)
+        if(canCollectPile)
         {
             collectionPile.SetActive(false);
             pd.IncrementInventory(collectedBones, collectedMeat, collectedPlate, collectedTears);

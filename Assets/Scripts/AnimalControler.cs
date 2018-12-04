@@ -75,10 +75,8 @@ public class AnimalControler : MonoBehaviour {
         if (other.gameObject.tag.Equals("BoneRemover") || other.gameObject.tag.Equals("BasebalBat") || other.gameObject.tag.Equals("BarbecueGril"))
         {
             //Debug.Log("BoneRemover XXXXX: " + other.transform.parent.name);
-            other.transform.parent.gameObject.GetComponent<ConstructControler>().AnimalEntry();
-            pd.animalBeingGrabbed = null;
-            pd.grabbingAnimal = false;
-            Destroy(this.gameObject);
+            other.transform.parent.gameObject.GetComponent<ConstructControler>().AnimalEntry(this.gameObject);
+            //Destroy(this.gameObject);
         }
     }
 

@@ -374,7 +374,7 @@ public class PlayerData : MonoBehaviour {
                                 {
                                     objectHit.gameObject.GetComponent<TerrainTile>().hasConstruct = true;
                                     Instantiate(barbecueGrilPrefab, hit.transform);
-                                    DecrementInventory(0, 10, 3, 0);
+                                    DecrementInventory(0, 10, 0, 3);
                                 }
                             }
                             else if (happyThoughtsSelected)
@@ -383,7 +383,7 @@ public class PlayerData : MonoBehaviour {
                                 {
                                     objectHit.gameObject.GetComponent<TerrainTile>().hasConstruct = true;
                                     Instantiate(HappyThoughtsPrefab, hit.transform);
-                                    DecrementInventory(10, 5, 5, 0);
+                                    DecrementInventory(10, 5, 0, 5);
                                 }
                             }
                         }

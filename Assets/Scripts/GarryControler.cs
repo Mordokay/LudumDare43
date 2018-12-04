@@ -52,14 +52,16 @@ public class GarryControler : MonoBehaviour {
 
     public void TakeDamage(float damage)
     {
-        health -= damage;
-        UpdateUI();
+        if (!isRecovering)
+        {
+            health -= damage;
+            UpdateUI();
+        }
     }
 
     public void GainPositivity(float positivityValue)
     {
         positivity += positivityValue;
-        positivity += 30;
         UpdateUI();
         if(positivity >= 100)
         {
@@ -98,6 +100,7 @@ public class GarryControler : MonoBehaviour {
             if(health < 100)
             {
                 health += strength * 2 * Time.deltaTime;
+                UpdateUI();
             }
             else
             {

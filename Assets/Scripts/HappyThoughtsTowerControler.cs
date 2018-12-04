@@ -54,8 +54,6 @@ public class HappyThoughtsTowerControler : MonoBehaviour {
         {
             if (isLoaded && garry.GetComponent<GarryControler>().garryActivated)
             {
-                this.GetComponent<Animator>().SetTrigger("ThrowBolder");
-
                 //Instantiate projectile and makes projective more towards garry
                 GameObject myBullet = Instantiate(projectilePrefab) as GameObject;
                 myBullet.transform.position = ProjectilePos.transform.position;

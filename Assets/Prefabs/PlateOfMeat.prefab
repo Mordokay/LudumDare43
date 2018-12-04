@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e689b5b0a335d246aba7fb5784d44f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 30
   strengthUpgrade: 0.05
   slider: {fileID: 1740533098807498}
 --- !u!114 &114271766375649868

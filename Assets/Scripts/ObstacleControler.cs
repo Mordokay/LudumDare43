@@ -32,6 +32,7 @@ public class ObstacleControler : MonoBehaviour {
         if (currentHealth < 0)
         {
             gc.UpgradeStrength(strengthUpgrade);
+            this.transform.GetComponentInParent<TerrainTile>().hasConstruct = false;
             Destroy(this.gameObject);
         }
     }

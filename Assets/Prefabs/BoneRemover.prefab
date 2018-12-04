@@ -1261,7 +1261,7 @@ MonoBehaviour:
   meatChunk: {fileID: 1441287510133476}
   collectionPile: {fileID: 1483770002324938}
   timeToProcessMeat: 10
-  bonesPerCicle: 5
+  bonesPerCicle: 6
   meatPerCicle: 3
   platePerCicle: 0
   tearsPerCicle: 0
