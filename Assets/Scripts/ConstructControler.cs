@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ConstructControler : MonoBehaviour {
 
@@ -24,8 +25,10 @@ public class ConstructControler : MonoBehaviour {
     public int collectedPlate;
     public int collectedTears;
 
+    public Slider workingRemainingTimeSlider;
     private void Start()
     {
+
         isWorking = false;
         canCollectPile = false;
         pd = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerData>();
@@ -69,6 +72,9 @@ public class ConstructControler : MonoBehaviour {
 	void Update () {
         if (isWorking)
         {
+            workingRemainingTimeSlider.transform.parent.LookAt(workingRemainingTimeSlider.transform.parent.position + Camera.main.transform.rotation * Vector3.back, Camera.main.transform.rotation * Vector3.up);
+            workingRemainingTimeSlider.value = timeSinceStartedWorking / timeToProcessMeat;
+
             timeSinceStartedWorking += Time.deltaTime;
             if(timeSinceStartedWorking > timeToProcessMeat)
             {

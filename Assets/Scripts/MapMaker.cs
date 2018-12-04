@@ -63,8 +63,25 @@ public class MapMaker : MonoBehaviour
     public GameObject playButton;
     public GameObject stopButton;
 
+    bool garryStartedWalking;
+    public Text timeText;
+    float currentTime;
+
+    public GameObject winPanel;
+    public Text winPanelTimeText;
+    public GameObject losePanel;
+    public Text losePanelTimeText;
+    public GameObject menuPanel;
+
+    public Text muteButtonText;
+    public bool toggleSound;
+
     private void Start()
     {
+        Time.timeScale = 1.0f;
+        toggleSound = true;
+        currentTime = 30.0f;
+        garryStartedWalking = false;
         garryHolder = GameObject.FindGameObjectWithTag("GarryHolder");
         mapBackup = "";
         arrowsHolder = GameObject.FindGameObjectWithTag("ArrowsHolder");
@@ -100,6 +117,9 @@ public class MapMaker : MonoBehaviour
             playButton.SetActive(false);
             stopButton.SetActive(true);
             gamePanel.SetActive(true);
+
+            currentTime = 30;
+            garryStartedWalking = false;
         }
     }
 
@@ -474,8 +494,74 @@ public class MapMaker : MonoBehaviour
             saveMapPanel.SetActive(true);
         }
     }
+
+    public void ToggleMenu()
+    {
+        if (menuPanel.activeSelf)
+        {
+            Time.timeScale = 1.0f;
+            menuPanel.SetActive(false);
+        }
+        else
+        {
+            Time.timeScale = 0.0f;
+            menuPanel.SetActive(true);
+        }
+        
+    }
+    public void ShowWin()
+    {
+        winPanel.SetActive(true);
+        winPanelTimeText.text = "Total time: " + currentTime + "s";
+        Time.timeScale = 0.0f;
+    }
+    public void ShowLost()
+    {
+        losePanel.SetActive(true);
+        losePanelTimeText.text = "Total time: " + currentTime + "s";
+        Time.timeScale = 0.0f;
+    }
+
+    public void ToggleSound()
+    {
+        toggleSound = !toggleSound;
+        if (toggleSound)
+        {
+            AudioListener.volume = 1f;
+            muteButtonText.text = "Sound: On";
+        }
+        else
+        {
+            AudioListener.volume = 0f;
+            muteButtonText.text = "Sound: Off";
+        }
+    }
     private void Update()
     {
+        if (gameStarted)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ToggleMenu();
+            }
+        }
+
+        if (gameStarted && !garryStartedWalking)
+        {
+            currentTime -= Time.deltaTime;
+            if (currentTime < 0)
+            {
+                currentTime = 0;
+                garryStartedWalking = true;
+                garryHolder.transform.GetChild(0).gameObject.GetComponent<GarryControler>().garryActivated = true;
+            }
+        }
+        else if(garryStartedWalking)
+        {
+            currentTime += Time.deltaTime;
+        }
+        timeText.text = "Time: " + (int)currentTime;
+
         if (isInEditor && !gameStarted  && GarryPlaced && pitOfHellPlaced)
         {
             playButton.GetComponent<Button>().interactable = true;

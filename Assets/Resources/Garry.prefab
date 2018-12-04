@@ -264,7 +264,8 @@ GameObject:
   - component: {fileID: 4364151540142428}
   - component: {fileID: 95133703597313898}
   - component: {fileID: 114172574578501702}
-  m_Layer: 0
+  - component: {fileID: 65141448571337812}
+  m_Layer: 10
   m_Name: Garry
   m_TagString: Garry
   m_Icon: {fileID: 0}
@@ -926,7 +927,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1180700294446328}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8300216, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4364151540142428}
@@ -939,7 +940,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1375917078631766}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.801, z: 0}
+  m_LocalPosition: {x: -0.14959443, y: 1.3177422, z: -1.0018209}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 4338038716690128}
@@ -2388,6 +2389,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1959944068609910}
   m_Mesh: {fileID: 4300012, guid: fbe606840521a984493e378530df08b6, type: 3}
+--- !u!65 &65141448571337812
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1375917078631766}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.51, z: 1}
+  m_Center: {x: 1.62, y: 0, z: 0}
 --- !u!95 &95133703597313898
 Animator:
   serializedVersion: 3
@@ -2417,5 +2430,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68a3de289d4e7f4aabf87fcf331db52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  strength: 0
+  positivity: 0
+  health: 0
   currentPathPoint: 0
   garrySpeed: 0.05
+  timeBetweenAtacks: 1
+  garryActivated: 0
+  healthBar: {fileID: 0}
+  positivityBar: {fileID: 0}

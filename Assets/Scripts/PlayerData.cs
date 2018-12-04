@@ -329,6 +329,7 @@ public class PlayerData : MonoBehaviour {
                                 {
                                     objectHit.gameObject.GetComponent<TerrainTile>().hasConstruct = true;
                                     Instantiate(bolderPrefab, hit.transform);
+                                    DecrementInventory(2, 8, 0, 0);
                                 }
                             }
                             else if (plateSelected)
@@ -337,6 +338,7 @@ public class PlayerData : MonoBehaviour {
                                 {
                                     objectHit.gameObject.GetComponent<TerrainTile>().hasConstruct = true;
                                     Instantiate(platePrefab, hit.transform);
+                                    DecrementInventory(0, 0, 1, 0);
                                 }
                             }
                             else if (catapultSelected)
@@ -345,6 +347,7 @@ public class PlayerData : MonoBehaviour {
                                 {
                                     objectHit.gameObject.GetComponent<TerrainTile>().hasConstruct = true;
                                     Instantiate(catapultPrefab, hit.transform);
+                                    DecrementInventory(10, 0, 0, 0);
                                 }
                             }
                             else if (boneRemoverSelected)
@@ -353,6 +356,7 @@ public class PlayerData : MonoBehaviour {
                                 {
                                     objectHit.gameObject.GetComponent<TerrainTile>().hasConstruct = true;
                                     Instantiate(BoneRemoverPrefab, hit.transform);
+                                    DecrementInventory(8, 0, 2, 0);
                                 }
                             }
                             else if (baseballBatSelected)
@@ -361,6 +365,7 @@ public class PlayerData : MonoBehaviour {
                                 {
                                     objectHit.gameObject.GetComponent<TerrainTile>().hasConstruct = true;
                                     Instantiate(basebalBatChamberPrefab, hit.transform);
+                                    DecrementInventory(2, 8, 0, 0);
                                 }
                             }
                             else if (barbecueGrillSelected)
@@ -369,6 +374,7 @@ public class PlayerData : MonoBehaviour {
                                 {
                                     objectHit.gameObject.GetComponent<TerrainTile>().hasConstruct = true;
                                     Instantiate(barbecueGrilPrefab, hit.transform);
+                                    DecrementInventory(0, 10, 3, 0);
                                 }
                             }
                             else if (happyThoughtsSelected)
@@ -377,6 +383,7 @@ public class PlayerData : MonoBehaviour {
                                 {
                                     objectHit.gameObject.GetComponent<TerrainTile>().hasConstruct = true;
                                     Instantiate(HappyThoughtsPrefab, hit.transform);
+                                    DecrementInventory(10, 5, 5, 0);
                                 }
                             }
                         }
@@ -388,6 +395,14 @@ public class PlayerData : MonoBehaviour {
                         if (objectHit.tag.Equals("BoneRemover") || objectHit.tag.Equals("BasebalBat") || objectHit.tag.Equals("BarbecueGril"))
                         {
                             objectHit.gameObject.GetComponent<ConstructControler>().Interact();
+                        }
+                        else if (objectHit.tag.Equals("BoneCatapult"))
+                        {
+                            objectHit.gameObject.GetComponent<CatapultControler>().Interact();
+                        }
+                        else if (objectHit.tag.Equals("HappyTower"))
+                        {
+                            objectHit.gameObject.GetComponent<HappyThoughtsTowerControler>().Interact();
                         }
                     }
 
@@ -425,7 +440,7 @@ public class PlayerData : MonoBehaviour {
                     }
                 }
 
-                if (grabbingAnimal)
+                if (grabbingAnimal && animalBeingGrabbed != null)
                 {
                     RaycastHit hit;
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -434,6 +449,10 @@ public class PlayerData : MonoBehaviour {
                     {
                         animalBeingGrabbed.transform.position =hit.point;
                     }
+                }
+                else if(animalBeingGrabbed == null)
+                {
+                    grabbingAnimal = false;
                 }
             }
         }

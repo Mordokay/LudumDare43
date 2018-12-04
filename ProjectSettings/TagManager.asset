@@ -23,6 +23,11 @@ TagManager:
   - BarbecueGril
   - Collector
   - Loot
+  - HappyTower
+  - Bulet
+  - HealthSlider
+  - PositivitySlider
+  - StrengthText
   layers:
   - Default
   - TransparentFX
@@ -42,7 +47,7 @@ TagManager:
   - Loot
   - Collector
   - MoveLayer
-  - 
+  - Bulet
   - 
   - 
   - 
