@@ -907,5 +907,5 @@ MonoBehaviour:
   patrolPoints: []
   animalMaxCount: 2
   animalHolder: {fileID: 4827954598832588}
-  animalRespawnTime: 2
+  animalRespawnTime: 6
   animalName: Turtle

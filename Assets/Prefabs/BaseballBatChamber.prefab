@@ -1413,9 +1413,9 @@ MonoBehaviour:
   collectionPile: {fileID: 1166588324465918}
   timeToProcessMeat: 10
   bonesPerCicle: 0
-  meatPerCicle: 3
+  meatPerCicle: 2
   platePerCicle: 0
-  tearsPerCicle: 4
+  tearsPerCicle: 5
   collectedBones: 0
   collectedMeat: 0
   collectedPlate: 0

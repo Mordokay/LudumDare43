@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  strengthUpgrade: 0.2
+  strengthUpgrade: 0.05
   slider: {fileID: 1971165322146130}
 --- !u!114 &114750525972712040
 MonoBehaviour:

@@ -595,7 +595,7 @@ MonoBehaviour:
   patrolPoints: []
   animalMaxCount: 2
   animalHolder: {fileID: 4700262458611204}
-  animalRespawnTime: 2
+  animalRespawnTime: 5
   animalName: Snake
 --- !u!135 &135778473462245040
 SphereCollider:

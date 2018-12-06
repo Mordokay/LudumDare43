@@ -512,13 +512,21 @@ public class MapMaker : MonoBehaviour
     public void ShowWin()
     {
         winPanel.SetActive(true);
-        winPanelTimeText.text = "Total time: " + currentTime + "s";
+        int minutes = Mathf.FloorToInt(currentTime / 60F);
+        int seconds = Mathf.FloorToInt(currentTime - minutes * 60);
+        string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+
+        winPanelTimeText.text = "Total time: " + niceTime;
         Time.timeScale = 0.0f;
     }
     public void ShowLost()
     {
         losePanel.SetActive(true);
-        losePanelTimeText.text = "Total time: " + currentTime + "s";
+        int minutes = Mathf.FloorToInt(currentTime / 60F);
+        int seconds = Mathf.FloorToInt(currentTime - minutes * 60);
+        string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+
+        losePanelTimeText.text = "Total time: " + niceTime;
         Time.timeScale = 0.0f;
     }
 
@@ -560,7 +568,11 @@ public class MapMaker : MonoBehaviour
         {
             currentTime += Time.deltaTime;
         }
-        timeText.text = "Time: " + (int)currentTime;
+
+        int minutes = Mathf.FloorToInt(currentTime / 60F);
+        int seconds = Mathf.FloorToInt(currentTime - minutes * 60);
+        string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+        timeText.text = "Time: " + niceTime;
 
         if (isInEditor && !gameStarted  && GarryPlaced && pitOfHellPlaced)
         {

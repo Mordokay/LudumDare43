@@ -75,7 +75,7 @@ public class GarryControler : MonoBehaviour {
         positivityBar.gameObject.GetComponentInChildren<Text>().text = positivity.ToString();
         healthBar.value = health / 100.0f;
         healthBar.gameObject.GetComponentInChildren<Text>().text = health.ToString();
-        strengthNumberText.text = strength.ToString();
+        strengthNumberText.text = strength.ToString("F2");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -131,7 +131,7 @@ public class GarryControler : MonoBehaviour {
                 else
                 {
 
-                    if (mapMaker.garryPath.Count > 2 && currentPathPoint < mapMaker.garryPath.Count)
+                    if (currentPathPoint < mapMaker.garryPath.Count)
                     {
                         if (Mathf.Abs(mapMaker.garryPath[currentPathPoint].transform.position.x - this.transform.position.x) < 0.05f &&
                         Mathf.Abs(mapMaker.garryPath[currentPathPoint].transform.position.z - this.transform.position.z) < 0.05f)

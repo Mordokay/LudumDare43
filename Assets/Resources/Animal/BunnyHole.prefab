@@ -989,7 +989,7 @@ MonoBehaviour:
   patrolPoints: []
   animalMaxCount: 2
   animalHolder: {fileID: 4943088979684630}
-  animalRespawnTime: 5
+  animalRespawnTime: 6
   animalName: Bunny
 --- !u!135 &135304218429669674
 SphereCollider:

@@ -2733,7 +2733,7 @@ MonoBehaviour:
   patrolPoints: []
   animalMaxCount: 2
   animalHolder: {fileID: 4025907149403110}
-  animalRespawnTime: 2
+  animalRespawnTime: 7
   animalName: Penguin
 --- !u!135 &135726836964848332
 SphereCollider:
