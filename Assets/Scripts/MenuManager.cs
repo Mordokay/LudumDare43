@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour {
     public GameObject mainMenuPanel;
     public GameObject mapListPanel;
     public GameObject listingItem;
+    public GameObject emptyListObject;
     public GameObject requestPasswordPanel;
     public InputField mapPassword;
     string mapForDelete;
@@ -54,6 +55,7 @@ public class MenuManager : MonoBehaviour {
 
         if (hs_post.text.Trim() != "")
         {
+            Instantiate(emptyListObject, mapListPanel.transform.GetChild(0).GetChild(0));
             string[] maps = hs_post.text.Split(new string[] { "&&" }, StringSplitOptions.None);
             foreach (string map in maps)
             {
@@ -65,7 +67,9 @@ public class MenuManager : MonoBehaviour {
                 myListing.transform.GetChild(0).GetComponentInChildren<Text>().text = "Map Name: " + myMapData[0] +
                     System.Environment.NewLine + "Creator: " + myMapData[1];
             }
+            Instantiate(emptyListObject, mapListPanel.transform.GetChild(0).GetChild(0));
         }
+        
         //Debug.Log(hs_post.text);
     }
 

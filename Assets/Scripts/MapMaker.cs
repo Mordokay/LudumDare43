@@ -228,21 +228,32 @@ public class MapMaker : MonoBehaviour
         {
             for (int j = 0; j < mapHeight; j++)
             {
-                
-                if (Int32.Parse(terrainIDs[i * mapWidth + j]) != -1)
+                if (Int32.Parse(terrainIDs[i * mapHeight + j]) != -1)
                 {
-                    yield return new WaitForSeconds(0.05f);
-                    mapArray[i, j].GetComponent<TerrainTile>().ChangeTile(Int32.Parse(terrainIDs[i * mapWidth + j]));
+                    yield return new WaitForSeconds(0.01f);
+                    mapArray[i, j].GetComponent<TerrainTile>().ChangeTile(Int32.Parse(terrainIDs[i * mapHeight + j]));
                 }
-                if (Int32.Parse(animalIDs[i * mapWidth + j]) != -1)
+            }
+        }
+        for (int i = 0; i < mapWidth; i++)
+        {
+            for (int j = 0; j < mapHeight; j++)
+            {
+                if (Int32.Parse(animalIDs[i * mapHeight + j]) != -1)
                 {
-                    yield return new WaitForSeconds(0.05f);
-                    mapArray[i, j].GetComponent<TerrainTile>().ChangeAnimal(Int32.Parse(animalIDs[i * mapWidth + j]));
+                    yield return new WaitForSeconds(0.02f);
+                    mapArray[i, j].GetComponent<TerrainTile>().ChangeAnimal(Int32.Parse(animalIDs[i * mapHeight + j]));
                 }
-                if (Int32.Parse(decorativeIDs[i * mapWidth + j]) != -1)
+            }
+        }
+        for (int i = 0; i < mapWidth; i++)
+        {
+            for (int j = 0; j < mapHeight; j++)
+            {
+                if (Int32.Parse(decorativeIDs[i * mapHeight + j]) != -1)
                 {
-                    yield return new WaitForSeconds(0.05f);
-                    mapArray[i, j].GetComponent<TerrainTile>().ChangeDecorative(Int32.Parse(decorativeIDs[i * mapWidth + j]));
+                    yield return new WaitForSeconds(0.02f);
+                    mapArray[i, j].GetComponent<TerrainTile>().ChangeDecorative(Int32.Parse(decorativeIDs[i * mapHeight + j]));
                 }
             }
         }
@@ -252,7 +263,7 @@ public class MapMaker : MonoBehaviour
         Vector3 lastPos = Vector3.zero;
         for (int i = 0; i < garyPathNodes.Length; i++)
         {
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.02f);
             string[] node = garyPathNodes[i].Split(' ');
             int realWidth = Int32.Parse(node[0]) + mapWidth / 2;
             int realHeight = Int32.Parse(node[1]) + mapHeight / 2;
