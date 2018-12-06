@@ -321,7 +321,8 @@ public class PlayerData : MonoBehaviour {
                         //Check if there is no decorative or sniaml in that tile
                         if (objectHit.gameObject.GetComponent<TerrainTile>().decorativeType == -1 &&
                             objectHit.gameObject.GetComponent<TerrainTile>().animalType == -1 &&
-                            !objectHit.gameObject.GetComponent<TerrainTile>().hasConstruct)
+                            !objectHit.gameObject.GetComponent<TerrainTile>().hasConstruct &&
+                            objectHit.gameObject.GetComponent<TerrainTile>().terrainType != 5)
                         {
                             if (bolderSelected)
                             {

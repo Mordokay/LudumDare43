@@ -113,41 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &35584853
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 1067302459320144, guid: 393c472025bf60e46bb5284cfd257f6c,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 35584854}
-  m_Layer: 5
-  m_Name: EmptyObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &35584854
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 224108815007855622, guid: 393c472025bf60e46bb5284cfd257f6c,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 35584853}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1169385799}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 500, y: -11.1}
-  m_SizeDelta: {x: 100, y: 22.2}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &35821974
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,6 +816,8 @@ MonoBehaviour:
   mapListPanel: {fileID: 199731391}
   listingItem: {fileID: 1135542976269650, guid: 262c4abe1734436498cd43f429ba8141,
     type: 2}
+  emptyListObject: {fileID: 1976966598236778, guid: 48378ad306381314e8555be671275a0a,
+    type: 2}
   requestPasswordPanel: {fileID: 1677232755}
   mapPassword: {fileID: 1298441139}
   passwordSubmitButton: {fileID: 1928106431}
@@ -1467,8 +1434,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 35584854}
+  m_Children: []
   m_Father: {fileID: 751205100}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -596,7 +596,6 @@ public class MapMaker : MonoBehaviour
         //Only allow raycast if mouse is not over the UI
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-
             //left click hold draws terrain
             if (Input.GetMouseButton(0))
             {
@@ -645,9 +644,14 @@ public class MapMaker : MonoBehaviour
                         {
                             if (editingAnimals)
                             {
+                                if ((selectedAnimal == 3 && objectHit.gameObject.GetComponent<TerrainTile>().terrainType != 5) ||
+                                    (selectedAnimal != 3 && objectHit.gameObject.GetComponent<TerrainTile>().terrainType == 5))
+                                {
+                                    return;
+                                }
                                 objectHit.gameObject.GetComponent<TerrainTile>().ChangeAnimal(selectedAnimal);
                             }
-                            else if (editingDecorative)
+                            else if (editingDecorative && objectHit.gameObject.GetComponent<TerrainTile>().terrainType != 5)
                             {
                                 objectHit.gameObject.GetComponent<TerrainTile>().ChangeDecorative(selectedDecorative);
                             }

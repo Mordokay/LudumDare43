@@ -99,7 +99,7 @@ public class GarryControler : MonoBehaviour {
         {
             if(health < 100)
             {
-                health += strength * 2 * Time.deltaTime;
+                health += strength * 3.0f * Time.deltaTime;
                 UpdateUI();
             }
             else
