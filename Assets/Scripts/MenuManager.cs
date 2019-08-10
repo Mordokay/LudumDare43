@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour {
 
-    string listMaps = "http://mordokay.com/LudumDare43/listMaps.php";
-    string deleteMap = "http://mordokay.com/LudumDare43/deleteMap.php";
+    string listMaps = "https://www.mordokay.com/webgl/Games/LD43/listMaps.php";
+    string deleteMap = "https://www.mordokay.com/webgl/Games/LD43/deleteMap.php";
 
     public GameObject mainMenuPanel;
     public GameObject mapListPanel;

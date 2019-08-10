@@ -415,7 +415,7 @@ public class PlayerData : MonoBehaviour {
                 {
                     if (grabbingAnimal)
                     {
-                        //Debug.Log("Release An Animal");
+                        Debug.Log("Release An Animal");
                         grabbingAnimal = false;
                         animalBeingGrabbed.GetComponent<AnimalControler>().beingGrabbed = false;
                         animalBeingGrabbed.GetComponent<Animator>().enabled = true;
@@ -430,7 +430,7 @@ public class PlayerData : MonoBehaviour {
                         if (Physics.Raycast(ray, out hit, 100.0f, animalLayer))
                         {
                             Transform objectHit = hit.transform;
-                            //Debug.Log("GrabsAnAnimal : " + objectHit.gameObject.name);
+                            Debug.Log("GrabsAnAnimal : " + objectHit.gameObject.name);
                             grabbingAnimal = true;
                             animalBeingGrabbed = objectHit.gameObject;
                             animalBeingGrabbed.GetComponent<AnimalControler>().beingGrabbed = true;

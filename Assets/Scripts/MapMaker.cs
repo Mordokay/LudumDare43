@@ -57,7 +57,7 @@ public class MapMaker : MonoBehaviour
     public GameObject mapMakerTestPanel;
     public GameObject gamePanel;
 
-    string getMapData = "http://mordokay.com/LudumDare43/getMapData.php";
+    string getMapData = "https://www.mordokay.com/webgl/Games/LD43/getMapData.php";
     public string mapBackup;
 
     public GameObject playButton;

@@ -12,9 +12,9 @@ public class MySqlManager : MonoBehaviour {
     public InputField password;
     public GameObject warningMySql;
 
-    string addMap = "http://mordokay.com/LudumDare43/addMap.php";
-    string getMapData = "http://mordokay.com/LudumDare43/getMapData.php";
-    string listMaps = "http://mordokay.com/LudumDare43/listMaps.php";
+    string addMap = "https://www.mordokay.com/webgl/Games/LD43/addMap.php";
+    string getMapData = "https://www.mordokay.com/webgl/Games/LD43/getMapData.php";
+    string listMaps = "https://www.mordokay.com/webgl/Games/LD43/listMaps.php";
 
     public string GenerateMapData()
     {
